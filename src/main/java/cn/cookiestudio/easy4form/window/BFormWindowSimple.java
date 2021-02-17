@@ -9,12 +9,12 @@ import cn.nukkit.form.element.ElementButton;
 import cn.nukkit.form.response.FormResponseSimple;
 import cn.nukkit.form.window.FormWindowSimple;
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.Consumer;
 
 public class BFormWindowSimple extends FormWindowSimple {
 
     private int formId;
-    private Function<FormResponseSimple, Void> onResponse;
+    private Consumer<FormResponseSimple> onResponse;
 
     public BFormWindowSimple(String title, String content) {
         super(title, content);
@@ -24,35 +24,35 @@ public class BFormWindowSimple extends FormWindowSimple {
         super(title, content, buttons);
     }
 
-    public BFormWindowSimple(String title, String content, List<ElementButton> buttons, Function<FormResponseSimple, Void> onResponse){
+    public BFormWindowSimple(String title, String content, List<ElementButton> buttons, Consumer<FormResponseSimple> onResponse) {
         super(title, content, buttons);
         this.onResponse = onResponse;
     }
 
-    public BFormWindowSimple setResponseAction(Function<FormResponseSimple, Void> onResponse){
+    public BFormWindowSimple setResponseAction(Consumer<FormResponseSimple> onResponse) {
         this.onResponse = onResponse;
         return this;
     }
 
-    public Function<FormResponseSimple, Void> getResponseAction() {
+    public Consumer<FormResponseSimple> getResponseAction() {
         return onResponse;
     }
 
-    public void invokeAction(FormResponseSimple response){
-        this.onResponse.apply(response);
+    public void invokeAction(FormResponseSimple response) {
+        this.onResponse.accept(response);
     }
 
-    public int sendToPlayer(Player player){
+    public int sendToPlayer(Player player) {
         Server.getInstance().getPluginManager().registerEvents(new Listener(), PluginMain.getPluginMain());
         this.formId = player.showFormWindow(this);
         return this.formId;
     }
 
-    private class Listener implements cn.nukkit.event.Listener{
+    private class Listener implements cn.nukkit.event.Listener {
         @EventHandler
-        public void onFormResponse(PlayerFormRespondedEvent event){
-            if (event.getFormID() == BFormWindowSimple.this.formId){
-                ((BFormWindowSimple)event.getWindow()).invokeAction((FormResponseSimple)event.getResponse());
+        public void onFormResponse(PlayerFormRespondedEvent event) {
+            if (event.getFormID() == BFormWindowSimple.this.formId) {
+                ((BFormWindowSimple) event.getWindow()).invokeAction((FormResponseSimple) event.getResponse());
             }
         }
     }

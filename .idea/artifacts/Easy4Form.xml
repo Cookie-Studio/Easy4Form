@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Easy4Form">
+    <output-path>$PROJECT_DIR$/test/plugins</output-path>
+    <root id="archive" name="Easy4Form.jar">
+      <element id="module-output" name="Easy4Form" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+    </root>
+  </artifact>
+</component>
