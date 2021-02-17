@@ -32,7 +32,7 @@ public class BFormWindowModal extends FormWindowModal {
         return onResponse;
     }
 
-    public void invokeAction(FormResponseModal response) {
+    public void invokeResponseAction(FormResponseModal response) {
         this.onResponse.accept(response);
     }
 
@@ -46,7 +46,7 @@ public class BFormWindowModal extends FormWindowModal {
         @EventHandler
         public void onFormResponse(PlayerFormRespondedEvent event) {
             if (event.getFormID() == BFormWindowModal.this.formId) {
-                ((BFormWindowModal) event.getWindow()).invokeAction((FormResponseModal) event.getResponse());
+                ((BFormWindowModal) event.getWindow()).invokeResponseAction((FormResponseModal) event.getResponse());
             }
         }
     }

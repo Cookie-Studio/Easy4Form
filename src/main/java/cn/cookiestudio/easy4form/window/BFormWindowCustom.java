@@ -42,7 +42,7 @@ public class BFormWindowCustom extends FormWindowCustom {
         return onResponse;
     }
 
-    public void invokeAction(FormResponseCustom response) {
+    public void invokeResponseAction(FormResponseCustom response) {
         this.onResponse.accept(response);
     }
 
@@ -56,7 +56,7 @@ public class BFormWindowCustom extends FormWindowCustom {
         @EventHandler
         public void onFormResponse(PlayerFormRespondedEvent event) {
             if (event.getFormID() == BFormWindowCustom.this.formId) {
-                ((BFormWindowCustom) event.getWindow()).invokeAction((FormResponseCustom) event.getResponse());
+                ((BFormWindowCustom) event.getWindow()).invokeResponseAction((FormResponseCustom) event.getResponse());
             }
         }
     }

@@ -38,7 +38,7 @@ public class BFormWindowSimple extends FormWindowSimple {
         return onResponse;
     }
 
-    public void invokeAction(FormResponseSimple response) {
+    public void invokeResponseAction(FormResponseSimple response) {
         this.onResponse.accept(response);
     }
 
@@ -52,7 +52,7 @@ public class BFormWindowSimple extends FormWindowSimple {
         @EventHandler
         public void onFormResponse(PlayerFormRespondedEvent event) {
             if (event.getFormID() == BFormWindowSimple.this.formId) {
-                ((BFormWindowSimple) event.getWindow()).invokeAction((FormResponseSimple) event.getResponse());
+                ((BFormWindowSimple) event.getWindow()).invokeResponseAction((FormResponseSimple) event.getResponse());
             }
         }
     }
