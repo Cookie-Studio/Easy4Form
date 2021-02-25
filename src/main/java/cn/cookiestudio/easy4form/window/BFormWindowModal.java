@@ -45,6 +45,8 @@ public class BFormWindowModal extends FormWindowModal {
     private class Listener implements cn.nukkit.event.Listener {
         @EventHandler
         public void onFormResponse(PlayerFormRespondedEvent event) {
+            if (event.getResponse() == null)
+                return;
             if (event.getFormID() == BFormWindowModal.this.formId) {
                 ((BFormWindowModal) event.getWindow()).invokeResponseAction((FormResponseModal) event.getResponse());
             }

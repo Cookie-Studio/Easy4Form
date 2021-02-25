@@ -51,6 +51,8 @@ public class BFormWindowSimple extends FormWindowSimple {
     private class Listener implements cn.nukkit.event.Listener {
         @EventHandler
         public void onFormResponse(PlayerFormRespondedEvent event) {
+            if (event.getResponse() == null)
+                return;
             if (event.getFormID() == BFormWindowSimple.this.formId) {
                 ((BFormWindowSimple) event.getWindow()).invokeResponseAction((FormResponseSimple) event.getResponse());
             }

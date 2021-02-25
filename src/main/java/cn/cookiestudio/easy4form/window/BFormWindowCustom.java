@@ -55,6 +55,8 @@ public class BFormWindowCustom extends FormWindowCustom {
     private class Listener implements cn.nukkit.event.Listener {
         @EventHandler
         public void onFormResponse(PlayerFormRespondedEvent event) {
+            if (event.getResponse() == null)
+                return;
             if (event.getFormID() == BFormWindowCustom.this.formId) {
                 ((BFormWindowCustom) event.getWindow()).invokeResponseAction((FormResponseCustom) event.getResponse());
             }
