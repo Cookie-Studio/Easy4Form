@@ -5,34 +5,33 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;
-import cn.nukkit.form.response.FormResponseModal;
 import cn.nukkit.form.window.FormWindowModal;
 import java.util.function.Consumer;
 
 public class BFormWindowModal extends FormWindowModal {
 
     private int formId;
-    private Consumer<FormResponseModal> onResponse;
+    private Consumer<PlayerFormRespondedEvent> onResponse;
 
     public BFormWindowModal(String title, String content, String trueButtonText, String falseButtonText) {
         super(title, content, trueButtonText, falseButtonText);
     }
 
-    public BFormWindowModal(String title, String content, String trueButtonText, String falseButtonText, Consumer<FormResponseModal> onResponse) {
+    public BFormWindowModal(String title, String content, String trueButtonText, String falseButtonText, Consumer<PlayerFormRespondedEvent> onResponse) {
         super(title, content, trueButtonText, falseButtonText);
         this.onResponse = onResponse;
     }
 
-    public BFormWindowModal setResponseAction(Consumer<FormResponseModal> onResponse) {
+    public BFormWindowModal setResponseAction(Consumer<PlayerFormRespondedEvent> onResponse) {
         this.onResponse = onResponse;
         return this;
     }
 
-    public Consumer<FormResponseModal> getResponseAction() {
+    public Consumer<PlayerFormRespondedEvent> getResponseAction() {
         return onResponse;
     }
 
-    public void invokeResponseAction(FormResponseModal response) {
+    public void invokeResponseAction(PlayerFormRespondedEvent response) {
         this.onResponse.accept(response);
     }
 
@@ -48,7 +47,7 @@ public class BFormWindowModal extends FormWindowModal {
             if (event.getResponse() == null)
                 return;
             if (event.getFormID() == BFormWindowModal.this.formId) {
-                ((BFormWindowModal) event.getWindow()).invokeResponseAction((FormResponseModal) event.getResponse());
+                ((BFormWindowModal) event.getWindow()).invokeResponseAction(event);
             }
         }
     }

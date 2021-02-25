@@ -6,7 +6,6 @@ import cn.nukkit.Server;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;
 import cn.nukkit.form.element.ElementButton;
-import cn.nukkit.form.response.FormResponseSimple;
 import cn.nukkit.form.window.FormWindowSimple;
 import java.util.List;
 import java.util.function.Consumer;
@@ -14,7 +13,7 @@ import java.util.function.Consumer;
 public class BFormWindowSimple extends FormWindowSimple {
 
     private int formId;
-    private Consumer<FormResponseSimple> onResponse;
+    private Consumer<PlayerFormRespondedEvent> onResponse;
 
     public BFormWindowSimple(String title, String content) {
         super(title, content);
@@ -24,21 +23,21 @@ public class BFormWindowSimple extends FormWindowSimple {
         super(title, content, buttons);
     }
 
-    public BFormWindowSimple(String title, String content, List<ElementButton> buttons, Consumer<FormResponseSimple> onResponse) {
+    public BFormWindowSimple(String title, String content, List<ElementButton> buttons, Consumer<PlayerFormRespondedEvent> onResponse) {
         super(title, content, buttons);
         this.onResponse = onResponse;
     }
 
-    public BFormWindowSimple setResponseAction(Consumer<FormResponseSimple> onResponse) {
+    public BFormWindowSimple setResponseAction(Consumer<PlayerFormRespondedEvent> onResponse) {
         this.onResponse = onResponse;
         return this;
     }
 
-    public Consumer<FormResponseSimple> getResponseAction() {
+    public Consumer<PlayerFormRespondedEvent> getResponseAction() {
         return onResponse;
     }
 
-    public void invokeResponseAction(FormResponseSimple response) {
+    public void invokeResponseAction(PlayerFormRespondedEvent response) {
         this.onResponse.accept(response);
     }
 
@@ -54,7 +53,7 @@ public class BFormWindowSimple extends FormWindowSimple {
             if (event.getResponse() == null)
                 return;
             if (event.getFormID() == BFormWindowSimple.this.formId) {
-                ((BFormWindowSimple) event.getWindow()).invokeResponseAction((FormResponseSimple) event.getResponse());
+                ((BFormWindowSimple) event.getWindow()).invokeResponseAction(event);
             }
         }
     }

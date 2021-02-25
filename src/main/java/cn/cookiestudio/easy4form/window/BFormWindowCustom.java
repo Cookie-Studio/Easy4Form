@@ -7,7 +7,6 @@ import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;
 import cn.nukkit.form.element.Element;
 import cn.nukkit.form.element.ElementButtonImageData;
-import cn.nukkit.form.response.FormResponseCustom;
 import cn.nukkit.form.window.FormWindowCustom;
 import java.util.List;
 import java.util.function.Consumer;
@@ -15,7 +14,7 @@ import java.util.function.Consumer;
 public class BFormWindowCustom extends FormWindowCustom {
 
     private int formId;
-    private Consumer<FormResponseCustom> onResponse;
+    private Consumer<PlayerFormRespondedEvent> onResponse;
 
     public BFormWindowCustom(String title) {
         super(title);
@@ -33,16 +32,16 @@ public class BFormWindowCustom extends FormWindowCustom {
         super(title, contents, icon);
     }
 
-    public BFormWindowCustom(String title, List<Element> contents, ElementButtonImageData icon, Consumer<FormResponseCustom> onResponse) {
+    public BFormWindowCustom(String title, List<Element> contents, ElementButtonImageData icon, Consumer<PlayerFormRespondedEvent> onResponse) {
         super(title, contents, icon);
         this.onResponse = onResponse;
     }
 
-    public Consumer<FormResponseCustom> getResponseAction() {
+    public Consumer<PlayerFormRespondedEvent> getResponseAction() {
         return onResponse;
     }
 
-    public void invokeResponseAction(FormResponseCustom response) {
+    public void invokeResponseAction(PlayerFormRespondedEvent response) {
         this.onResponse.accept(response);
     }
 
@@ -58,7 +57,7 @@ public class BFormWindowCustom extends FormWindowCustom {
             if (event.getResponse() == null)
                 return;
             if (event.getFormID() == BFormWindowCustom.this.formId) {
-                ((BFormWindowCustom) event.getWindow()).invokeResponseAction((FormResponseCustom) event.getResponse());
+                ((BFormWindowCustom) event.getWindow()).invokeResponseAction(event);
             }
         }
     }
