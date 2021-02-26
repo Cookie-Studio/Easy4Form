@@ -37,6 +37,11 @@ public class BFormWindowCustom extends FormWindowCustom {
         this.onResponse = onResponse;
     }
 
+    public BFormWindowCustom setResponseAction(Consumer<PlayerFormRespondedEvent> onResponse) {
+        this.onResponse = onResponse;
+        return this;
+    }
+
     public Consumer<PlayerFormRespondedEvent> getResponseAction() {
         return onResponse;
     }
