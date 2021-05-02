@@ -16,6 +16,10 @@ public class BFormWindowCustom extends FormWindowCustom {
     private int formId;
     private Consumer<PlayerFormRespondedEvent> onResponse;
 
+    {
+        Server.getInstance().getPluginManager().registerEvents(new BFormWindowCustom.Listener(), PluginMain.getPluginMain());
+    }
+
     public BFormWindowCustom(String title) {
         super(title);
     }
@@ -51,7 +55,6 @@ public class BFormWindowCustom extends FormWindowCustom {
     }
 
     public int sendToPlayer(Player player) {
-        Server.getInstance().getPluginManager().registerEvents(new BFormWindowCustom.Listener(), PluginMain.getPluginMain());
         this.formId = player.showFormWindow(this);
         return this.formId;
     }

@@ -15,6 +15,10 @@ public class BFormWindowSimple extends FormWindowSimple {
     private int formId;
     private Consumer<PlayerFormRespondedEvent> onResponse;
 
+    {
+        Server.getInstance().getPluginManager().registerEvents(new Listener(), PluginMain.getPluginMain());
+    }
+
     public BFormWindowSimple(String title, String content) {
         super(title, content);
     }
@@ -42,7 +46,6 @@ public class BFormWindowSimple extends FormWindowSimple {
     }
 
     public int sendToPlayer(Player player) {
-        Server.getInstance().getPluginManager().registerEvents(new Listener(), PluginMain.getPluginMain());
         this.formId = player.showFormWindow(this);
         return this.formId;
     }
