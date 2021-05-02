@@ -12,10 +12,7 @@ public class BFormWindowModal extends FormWindowModal {
 
     private int formId;
     private Consumer<PlayerFormRespondedEvent> onResponse;
-
-    {
-        Server.getInstance().getPluginManager().registerEvents(new BFormWindowModal.Listener(), PluginMain.getPluginMain());
-    }
+    private boolean listenerRegisterFlag;
 
     public BFormWindowModal(String title, String content, String trueButtonText, String falseButtonText) {
         super(title, content, trueButtonText, falseButtonText);
@@ -40,6 +37,8 @@ public class BFormWindowModal extends FormWindowModal {
     }
 
     public int sendToPlayer(Player player) {
+        if (!this.listenerRegisterFlag)
+            Server.getInstance().getPluginManager().registerEvents(new Listener(), PluginMain.getPluginMain());
         this.formId = player.showFormWindow(this);
         return this.formId;
     }
