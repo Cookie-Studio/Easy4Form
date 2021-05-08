@@ -37,8 +37,10 @@ public class BFormWindowModal extends FormWindowModal {
     }
 
     public int sendToPlayer(Player player) {
-        if (!this.listenerRegisterFlag)
+        if (!this.listenerRegisterFlag){
             Server.getInstance().getPluginManager().registerEvents(new Listener(), PluginMain.getPluginMain());
+            this.listenerRegisterFlag = true;
+        }
         this.formId = player.showFormWindow(this);
         return this.formId;
     }

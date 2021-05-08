@@ -16,13 +16,13 @@
     <distributionManagement>
         <repository>
             <id>releases</id>
-            <name>finalgame repo</name>
-            <url>http://finalgame.cn:51460/repository/finalgame/</url>
+            <name>ck</name>
+            <url>http://finalgame.cn:51460/repository/cookiestudio/</url>
         </repository>
         <snapshotRepository>
             <id>releases</id>
-            <name>finalgame repo</name>
-            <url>http://finalgame.cn:51460/repository/finalgame/</url>
+            <name>ck</name>
+            <url>http://finalgame.cn:51460/repository/cookiestudio/</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -34,6 +34,10 @@
         <repository>
             <id>finalgame</id>
             <url>http://finalgame.cn:51460/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>ck</id>
+            <url>http://finalgame.cn:51460/repository/cookiestudio/</url>
         </repository>
     </repositories>
 
