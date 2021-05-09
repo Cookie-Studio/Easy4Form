@@ -70,4 +70,54 @@ public class BFormWindowCustom extends FormWindowCustom {
             }
         }
     }
+
+    public Builder getBuilder(){
+        return new Builder();
+    }
+
+    public static class Builder{
+
+        private Consumer<PlayerFormRespondedEvent> onResponse;
+        private String title;
+        private List<Element> elements;
+        private ElementButtonImageData icon;
+        private String response;
+
+        public Builder setOnResponse(Consumer<PlayerFormRespondedEvent> onResponse) {
+            this.onResponse = onResponse;
+            return this;
+        }
+
+        public Builder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder setElements(List<Element> elements) {
+            this.elements = elements;
+            return this;
+        }
+
+        public Builder addElements(Element element){
+            this.elements.add(element);
+            return this;
+        }
+
+        public Builder setIcon(ElementButtonImageData icon) {
+            this.icon = icon;
+            return this;
+        }
+
+        public Builder setResponse(String response) {
+            this.response = response;
+            return this;
+        }
+
+        public BFormWindowCustom build(){
+            BFormWindowCustom form = new BFormWindowCustom(this.title,this.elements,this.icon,this.onResponse);
+            if (this.response != null)
+                form.setResponse(this.response);
+            return form;
+        }
+    }
 }

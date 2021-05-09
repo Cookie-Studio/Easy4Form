@@ -61,4 +61,54 @@ public class BFormWindowSimple extends FormWindowSimple {
             }
         }
     }
+
+    public Builder getBuilder(){
+        return new Builder();
+    }
+
+    public static class Builder{
+
+        private Consumer<PlayerFormRespondedEvent> onResponse;
+        private String title;
+        private String content;
+        private List<ElementButton> buttons;
+        private String response;
+
+        public Builder setOnResponse(Consumer<PlayerFormRespondedEvent> onResponse) {
+            this.onResponse = onResponse;
+            return this;
+        }
+
+        public Builder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder setContent(String content) {
+            this.content = content;
+            return this;
+        }
+
+        public Builder setButtons(List<ElementButton> buttons) {
+            this.buttons = buttons;
+            return this;
+        }
+
+        public Builder addButton(ElementButton button){
+            this.buttons.add(button);
+            return this;
+        }
+
+        public Builder setResponse(String response) {
+            this.response = response;
+            return this;
+        }
+
+        public BFormWindowSimple build(){
+            BFormWindowSimple form = new BFormWindowSimple(this.title,this.content,this.buttons,this.onResponse);
+            if (this.response != null)
+                form.setResponse(this.response);
+            return form;
+        }
+    }
 }

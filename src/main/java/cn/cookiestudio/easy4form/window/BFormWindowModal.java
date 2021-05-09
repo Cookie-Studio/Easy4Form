@@ -55,4 +55,55 @@ public class BFormWindowModal extends FormWindowModal {
             }
         }
     }
+
+    public Builder getBuilder(){
+        return new Builder();
+    }
+
+    public static class Builder{
+
+        private Consumer<PlayerFormRespondedEvent> onResponse;
+        private String title;
+        private String content;
+        private String trueButton;
+        private String falseButton;
+        private String response;
+
+        public Builder setOnResponse(Consumer<PlayerFormRespondedEvent> onResponse) {
+            this.onResponse = onResponse;
+            return this;
+        }
+
+        public Builder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder setContent(String content) {
+            this.content = content;
+            return this;
+        }
+
+        public Builder setTrueButton(String trueButton) {
+            this.trueButton = trueButton;
+            return this;
+        }
+
+        public Builder setFalseButton(String falseButton) {
+            this.falseButton = falseButton;
+            return this;
+        }
+
+        public Builder setResponse(String response) {
+            this.response = response;
+            return this;
+        }
+
+        public BFormWindowModal build(){
+            BFormWindowModal form =  new BFormWindowModal(title,content, trueButton, falseButton);
+            if (this.response != null)
+                form.setResponse(this.response);
+            return form;
+        }
+    }
 }
