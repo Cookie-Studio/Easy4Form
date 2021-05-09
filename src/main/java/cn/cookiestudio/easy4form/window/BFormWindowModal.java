@@ -11,29 +11,29 @@ import java.util.function.Consumer;
 public class BFormWindowModal extends FormWindowModal {
 
     private int formId;
-    private Consumer<PlayerFormRespondedEvent> onResponse;
+    private Consumer<PlayerFormRespondedEvent> responseAction;
     private boolean listenerRegisterFlag;
 
     public BFormWindowModal(String title, String content, String trueButtonText, String falseButtonText) {
         super(title, content, trueButtonText, falseButtonText);
     }
 
-    public BFormWindowModal(String title, String content, String trueButtonText, String falseButtonText, Consumer<PlayerFormRespondedEvent> onResponse) {
+    public BFormWindowModal(String title, String content, String trueButtonText, String falseButtonText, Consumer<PlayerFormRespondedEvent> responseAction) {
         super(title, content, trueButtonText, falseButtonText);
-        this.onResponse = onResponse;
+        this.responseAction = responseAction;
     }
 
     public BFormWindowModal setResponseAction(Consumer<PlayerFormRespondedEvent> onResponse) {
-        this.onResponse = onResponse;
+        this.responseAction = onResponse;
         return this;
     }
 
     public Consumer<PlayerFormRespondedEvent> getResponseAction() {
-        return onResponse;
+        return responseAction;
     }
 
     public void invokeResponseAction(PlayerFormRespondedEvent response) {
-        this.onResponse.accept(response);
+        this.responseAction.accept(response);
     }
 
     public int sendToPlayer(Player player) {
@@ -56,21 +56,21 @@ public class BFormWindowModal extends FormWindowModal {
         }
     }
 
-    public Builder getBuilder(){
+    public static Builder getBuilder(){
         return new Builder();
     }
 
     public static class Builder{
 
-        private Consumer<PlayerFormRespondedEvent> onResponse;
+        private Consumer<PlayerFormRespondedEvent> responseAction;
         private String title;
         private String content;
         private String trueButton;
         private String falseButton;
         private String response;
 
-        public Builder setOnResponse(Consumer<PlayerFormRespondedEvent> onResponse) {
-            this.onResponse = onResponse;
+        public Builder setResponseAction(Consumer<PlayerFormRespondedEvent> responseAction) {
+            this.responseAction = responseAction;
             return this;
         }
 

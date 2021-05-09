@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 public class BFormWindowCustom extends FormWindowCustom {
 
     private int formId;
-    private Consumer<PlayerFormRespondedEvent> onResponse;
+    private Consumer<PlayerFormRespondedEvent> responseAction;
     private boolean listenerRegisterFlag;
 
     public BFormWindowCustom(String title) {
@@ -33,22 +33,22 @@ public class BFormWindowCustom extends FormWindowCustom {
         super(title, contents, icon);
     }
 
-    public BFormWindowCustom(String title, List<Element> contents, ElementButtonImageData icon, Consumer<PlayerFormRespondedEvent> onResponse) {
+    public BFormWindowCustom(String title, List<Element> contents, ElementButtonImageData icon, Consumer<PlayerFormRespondedEvent> responseAction) {
         super(title, contents, icon);
-        this.onResponse = onResponse;
+        this.responseAction = responseAction;
     }
 
     public BFormWindowCustom setResponseAction(Consumer<PlayerFormRespondedEvent> onResponse) {
-        this.onResponse = onResponse;
+        this.responseAction = onResponse;
         return this;
     }
 
     public Consumer<PlayerFormRespondedEvent> getResponseAction() {
-        return onResponse;
+        return responseAction;
     }
 
     public void invokeResponseAction(PlayerFormRespondedEvent response) {
-        this.onResponse.accept(response);
+        this.responseAction.accept(response);
     }
 
     public int sendToPlayer(Player player) {
@@ -71,20 +71,20 @@ public class BFormWindowCustom extends FormWindowCustom {
         }
     }
 
-    public Builder getBuilder(){
+    public static Builder getBuilder(){
         return new Builder();
     }
 
     public static class Builder{
 
-        private Consumer<PlayerFormRespondedEvent> onResponse;
+        private Consumer<PlayerFormRespondedEvent> responseAction;
         private String title;
         private List<Element> elements;
         private ElementButtonImageData icon;
         private String response;
 
-        public Builder setOnResponse(Consumer<PlayerFormRespondedEvent> onResponse) {
-            this.onResponse = onResponse;
+        public Builder setResponseAction(Consumer<PlayerFormRespondedEvent> responseAction) {
+            this.responseAction = responseAction;
             return this;
         }
 
@@ -114,7 +114,7 @@ public class BFormWindowCustom extends FormWindowCustom {
         }
 
         public BFormWindowCustom build(){
-            BFormWindowCustom form = new BFormWindowCustom(this.title,this.elements,this.icon,this.onResponse);
+            BFormWindowCustom form = new BFormWindowCustom(this.title,this.elements,this.icon,this.responseAction);
             if (this.response != null)
                 form.setResponse(this.response);
             return form;

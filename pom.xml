@@ -17,12 +17,12 @@
         <repository>
             <id>releases</id>
             <name>ck</name>
-            <url>http://finalgame.cn:51460/repository/cookiestudio/</url>
+            <url>http://finalgame.cn:51460/repository/finalgame/</url>
         </repository>
         <snapshotRepository>
             <id>releases</id>
             <name>ck</name>
-            <url>http://finalgame.cn:51460/repository/cookiestudio/</url>
+            <url>http://finalgame.cn:51460/repository/finalgame/</url>
         </snapshotRepository>
     </distributionManagement>
 

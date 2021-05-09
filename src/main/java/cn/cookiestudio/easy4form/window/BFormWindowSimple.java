@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 public class BFormWindowSimple extends FormWindowSimple {
 
     private int formId;
-    private Consumer<PlayerFormRespondedEvent> onResponse;
+    private Consumer<PlayerFormRespondedEvent> responseAction;
     private boolean listenerRegisterFlag;
 
     public BFormWindowSimple(String title, String content) {
@@ -24,22 +24,22 @@ public class BFormWindowSimple extends FormWindowSimple {
         super(title, content, buttons);
     }
 
-    public BFormWindowSimple(String title, String content, List<ElementButton> buttons, Consumer<PlayerFormRespondedEvent> onResponse) {
+    public BFormWindowSimple(String title, String content, List<ElementButton> buttons, Consumer<PlayerFormRespondedEvent> responseAction) {
         super(title, content, buttons);
-        this.onResponse = onResponse;
+        this.responseAction = responseAction;
     }
 
     public BFormWindowSimple setResponseAction(Consumer<PlayerFormRespondedEvent> onResponse) {
-        this.onResponse = onResponse;
+        this.responseAction = onResponse;
         return this;
     }
 
     public Consumer<PlayerFormRespondedEvent> getResponseAction() {
-        return onResponse;
+        return responseAction;
     }
 
     public void invokeResponseAction(PlayerFormRespondedEvent response) {
-        this.onResponse.accept(response);
+        this.responseAction.accept(response);
     }
 
     public int sendToPlayer(Player player) {
@@ -62,20 +62,20 @@ public class BFormWindowSimple extends FormWindowSimple {
         }
     }
 
-    public Builder getBuilder(){
+    public static Builder getBuilder(){
         return new Builder();
     }
 
     public static class Builder{
 
-        private Consumer<PlayerFormRespondedEvent> onResponse;
+        private Consumer<PlayerFormRespondedEvent> responseAction;
         private String title;
         private String content;
         private List<ElementButton> buttons;
         private String response;
 
-        public Builder setOnResponse(Consumer<PlayerFormRespondedEvent> onResponse) {
-            this.onResponse = onResponse;
+        public Builder setResponseAction(Consumer<PlayerFormRespondedEvent> responseAction) {
+            this.responseAction = responseAction;
             return this;
         }
 
@@ -105,7 +105,7 @@ public class BFormWindowSimple extends FormWindowSimple {
         }
 
         public BFormWindowSimple build(){
-            BFormWindowSimple form = new BFormWindowSimple(this.title,this.content,this.buttons,this.onResponse);
+            BFormWindowSimple form = new BFormWindowSimple(this.title,this.content,this.buttons,this.responseAction);
             if (this.response != null)
                 form.setResponse(this.response);
             return form;
