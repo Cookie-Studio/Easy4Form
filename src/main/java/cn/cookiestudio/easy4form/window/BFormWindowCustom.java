@@ -78,7 +78,7 @@ public class BFormWindowCustom extends FormWindowCustom {
     public static class Builder{
 
         private Consumer<PlayerFormRespondedEvent> responseAction;
-        private String title;
+        private String title = "";
         private List<Element> elements;
         private ElementButtonImageData icon;
         private String response;

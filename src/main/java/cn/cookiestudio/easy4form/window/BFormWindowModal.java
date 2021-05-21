@@ -63,8 +63,8 @@ public class BFormWindowModal extends FormWindowModal {
     public static class Builder{
 
         private Consumer<PlayerFormRespondedEvent> responseAction;
-        private String title;
-        private String content;
+        private String title = "";
+        private String content = "";
         private String trueButton;
         private String falseButton;
         private String response;

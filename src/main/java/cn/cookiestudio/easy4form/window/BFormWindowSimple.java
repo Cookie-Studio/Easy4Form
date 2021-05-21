@@ -69,8 +69,8 @@ public class BFormWindowSimple extends FormWindowSimple {
     public static class Builder{
 
         private Consumer<PlayerFormRespondedEvent> responseAction;
-        private String title;
-        private String content;
+        private String title = "";
+        private String content = "";
         private List<ElementButton> buttons;
         private String response;
 
