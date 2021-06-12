@@ -1,5 +1,6 @@
 package cn.cookiestudio.easy4form.window;
 
+import cn.cookiestudio.easy4form.BFormListener;
 import cn.cookiestudio.easy4form.PluginMain;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
@@ -8,10 +9,13 @@ import cn.nukkit.event.player.PlayerFormRespondedEvent;
 import cn.nukkit.form.element.Element;
 import cn.nukkit.form.element.ElementButtonImageData;
 import cn.nukkit.form.window.FormWindowCustom;
+import lombok.Getter;
+
 import java.util.List;
 import java.util.function.Consumer;
 
-public class BFormWindowCustom extends FormWindowCustom {
+@Getter
+public class BFormWindowCustom extends FormWindowCustom implements BForm{
 
     private int formId;
     private Consumer<PlayerFormRespondedEvent> responseAction;
@@ -53,22 +57,11 @@ public class BFormWindowCustom extends FormWindowCustom {
 
     public int sendToPlayer(Player player) {
         if (!this.listenerRegisterFlag){
-            Server.getInstance().getPluginManager().registerEvents(new Listener(), PluginMain.getPluginMain());
+            Server.getInstance().getPluginManager().registerEvents(new BFormListener(this), PluginMain.getPluginMain());
             this.listenerRegisterFlag = true;
         }
         this.formId = player.showFormWindow(this);
         return this.formId;
-    }
-
-    private class Listener implements cn.nukkit.event.Listener {
-        @EventHandler
-        public void onFormResponse(PlayerFormRespondedEvent event) {
-            if (event.getResponse() == null)
-                return;
-            if (event.getFormID() == BFormWindowCustom.this.formId) {
-                ((BFormWindowCustom) event.getWindow()).invokeResponseAction(event);
-            }
-        }
     }
 
     public static Builder getBuilder(){

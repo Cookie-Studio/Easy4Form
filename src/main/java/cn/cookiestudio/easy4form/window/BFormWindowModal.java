@@ -1,14 +1,18 @@
 package cn.cookiestudio.easy4form.window;
 
+import cn.cookiestudio.easy4form.BFormListener;
 import cn.cookiestudio.easy4form.PluginMain;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;
 import cn.nukkit.form.window.FormWindowModal;
+import lombok.Getter;
+
 import java.util.function.Consumer;
 
-public class BFormWindowModal extends FormWindowModal {
+@Getter
+public class BFormWindowModal extends FormWindowModal implements BForm{
 
     private int formId;
     private Consumer<PlayerFormRespondedEvent> responseAction;
@@ -38,22 +42,11 @@ public class BFormWindowModal extends FormWindowModal {
 
     public int sendToPlayer(Player player) {
         if (!this.listenerRegisterFlag){
-            Server.getInstance().getPluginManager().registerEvents(new Listener(), PluginMain.getPluginMain());
+            Server.getInstance().getPluginManager().registerEvents(new BFormListener(this), PluginMain.getPluginMain());
             this.listenerRegisterFlag = true;
         }
         this.formId = player.showFormWindow(this);
         return this.formId;
-    }
-
-    private class Listener implements cn.nukkit.event.Listener {
-        @EventHandler
-        public void onFormResponse(PlayerFormRespondedEvent event) {
-            if (event.getResponse() == null)
-                return;
-            if (event.getFormID() == BFormWindowModal.this.formId) {
-                ((BFormWindowModal) event.getWindow()).invokeResponseAction(event);
-            }
-        }
     }
 
     public static Builder getBuilder(){
