@@ -8,13 +8,15 @@ import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;
 import cn.nukkit.form.window.FormWindowModal;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.function.Consumer;
 
 @Getter
+@Setter
 public class BFormWindowModal extends FormWindowModal implements BForm{
 
-    private int formId;
+    private int formId = -1;
     private Consumer<PlayerFormRespondedEvent> responseAction;
     private boolean listenerRegisterFlag;
 
@@ -41,12 +43,15 @@ public class BFormWindowModal extends FormWindowModal implements BForm{
     }
 
     public int sendToPlayer(Player player) {
-        if (!this.listenerRegisterFlag){
-            Server.getInstance().getPluginManager().registerEvents(new BFormListener(this), PluginMain.getPluginMain());
-            this.listenerRegisterFlag = true;
+        BFormWindowModal clone = null;
+        try {
+            clone = (BFormWindowModal) this.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
         }
-        this.formId = player.showFormWindow(this);
-        return this.formId;
+        Server.getInstance().getPluginManager().registerEvents(new BFormListener(clone), PluginMain.getPluginMain());
+        clone.setFormId(player.showFormWindow(clone));
+        return clone.getFormId();
     }
 
     public static Builder getBuilder(){

@@ -10,14 +10,16 @@ import cn.nukkit.form.element.Element;
 import cn.nukkit.form.element.ElementButtonImageData;
 import cn.nukkit.form.window.FormWindowCustom;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 @Getter
+@Setter
 public class BFormWindowCustom extends FormWindowCustom implements BForm{
 
-    private int formId;
+    private int formId = -1;
     private Consumer<PlayerFormRespondedEvent> responseAction;
     private boolean listenerRegisterFlag;
 
@@ -56,12 +58,15 @@ public class BFormWindowCustom extends FormWindowCustom implements BForm{
     }
 
     public int sendToPlayer(Player player) {
-        if (!this.listenerRegisterFlag){
-            Server.getInstance().getPluginManager().registerEvents(new BFormListener(this), PluginMain.getPluginMain());
-            this.listenerRegisterFlag = true;
+        BFormWindowCustom clone = null;
+        try {
+            clone = (BFormWindowCustom) this.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
         }
-        this.formId = player.showFormWindow(this);
-        return this.formId;
+        Server.getInstance().getPluginManager().registerEvents(new BFormListener(clone), PluginMain.getPluginMain());
+        clone.setFormId(player.showFormWindow(clone));
+        return clone.getFormId();
     }
 
     public static Builder getBuilder(){
