@@ -6,7 +6,7 @@
 
     <groupId>cn.cookiestudio</groupId>
     <artifactId>Easy4Form</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.3</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -17,30 +17,41 @@
         <repository>
             <id>releases</id>
             <name>ck</name>
-            <url>http://finalgame.cn:51460/repository/finalgame/</url>
+            <url>http://nz.ipyvps.com:1111/repository/cookie-studio/</url>
         </repository>
         <snapshotRepository>
-            <id>releases</id>
+            <id>shapshots</id>
             <name>ck</name>
-            <url>http://finalgame.cn:51460/repository/finalgame/</url>
+            <url>http://nz.ipyvps.com:1111/repository/cookie-studio/</url>
         </snapshotRepository>
     </distributionManagement>
 
     <repositories>
-<!--        <repository>-->
-<!--            <id>liuli-repo</id>-->
-<!--            <url>http://mc.liulihaocai.pw:1919/maven</url>-->
-<!--        </repository>-->
         <repository>
-            <id>finalgame</id>
-            <url>http://finalgame.cn:51460/repository/maven-public/</url>
+            <id>opencollab-repo-release</id>
+            <url>https://repo.opencollab.dev/maven-releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>opencollab-repo-snapshot</id>
+            <url>https://repo.opencollab.dev/maven-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
         <repository>
             <id>ck</id>
-            <url>http://finalgame.cn:51460/repository/cookiestudio/</url>
+            <url>http://nz.ipyvps.com:1111/repository/cookie-studio/</url>
         </repository>
     </repositories>
-
 
     <dependencies>
         <dependency>
