@@ -6,7 +6,6 @@ import cn.nukkit.event.player.PlayerFormRespondedEvent;
 import java.util.function.Consumer;
 
 public interface BForm {
-    int getFormId();
     void invokeResponseAction(PlayerFormRespondedEvent response);
     int sendToPlayer(Player player);
     BForm setResponseAction(Consumer<PlayerFormRespondedEvent> onResponse);

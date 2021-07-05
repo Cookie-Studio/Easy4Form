@@ -1,10 +1,9 @@
 package cn.cookiestudio.easy4form.window;
 
-import cn.cookiestudio.easy4form.BFormListener;
+import cn.cookiestudio.easy4form.BFormPool;
 import cn.cookiestudio.easy4form.PluginMain;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
-import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.player.PlayerFormRespondedEvent;
 import cn.nukkit.form.element.Element;
 import cn.nukkit.form.element.ElementButtonImageData;
@@ -19,9 +18,7 @@ import java.util.function.Consumer;
 @Setter
 public class BFormWindowCustom extends FormWindowCustom implements BForm{
 
-    private int formId = -1;
     private Consumer<PlayerFormRespondedEvent> responseAction;
-    private boolean listenerRegisterFlag;
 
     public BFormWindowCustom(String title) {
         super(title);
@@ -58,15 +55,9 @@ public class BFormWindowCustom extends FormWindowCustom implements BForm{
     }
 
     public int sendToPlayer(Player player) {
-        BFormWindowCustom clone = null;
-        try {
-            clone = (BFormWindowCustom) this.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        Server.getInstance().getPluginManager().registerEvents(new BFormListener(clone), PluginMain.getPluginMain());
-        clone.setFormId(player.showFormWindow(clone));
-        return clone.getFormId();
+        int formId = player.showFormWindow(this);
+        BFormPool.handle(formId,this);
+        return formId;
     }
 
     public static Builder getBuilder(){
