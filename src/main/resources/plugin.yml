@@ -1,5 +1,5 @@
 name: Easy4Form
 main: cn.cookiestudio.easy4form.PluginMain
-version: "1.0.2"
+version: "1.0.3"
 author: smart_cmd
 api: ["1.0.11"]
