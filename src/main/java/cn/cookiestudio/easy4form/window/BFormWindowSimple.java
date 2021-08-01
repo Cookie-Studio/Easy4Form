@@ -10,6 +10,7 @@ import cn.nukkit.form.window.FormWindowSimple;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -60,7 +61,7 @@ public class BFormWindowSimple extends FormWindowSimple implements BForm{
         private Consumer<PlayerFormRespondedEvent> responseAction;
         private String title = "";
         private String content = "";
-        private List<ElementButton> buttons;
+        private List<ElementButton> buttons = new ArrayList<>();
         private String response;
 
         public Builder setResponseAction(Consumer<PlayerFormRespondedEvent> responseAction) {

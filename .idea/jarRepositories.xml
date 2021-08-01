@@ -19,6 +19,11 @@
     <remote-repository>
       <option name="id" value="ck" />
       <option name="name" value="ck" />
+      <option name="url" value="http://nz.ipyvps.com:1111/repository/cookie-studio/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="ck" />
+      <option name="name" value="ck" />
       <option name="url" value="http://finalgame.cn:51460/repository/cookiestudio/" />
     </remote-repository>
     <remote-repository>

@@ -11,6 +11,7 @@ import cn.nukkit.form.window.FormWindowCustom;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -68,7 +69,7 @@ public class BFormWindowCustom extends FormWindowCustom implements BForm{
 
         private Consumer<PlayerFormRespondedEvent> responseAction;
         private String title = "";
-        private List<Element> elements;
+        private List<Element> elements = new ArrayList<>();
         private ElementButtonImageData icon;
         private String response;
 
