@@ -51,7 +51,7 @@ public class BFormWindowModal extends FormWindowModal implements BForm{
 
     public static class Builder{
 
-        private Consumer<PlayerFormRespondedEvent> responseAction;
+        private Consumer<PlayerFormRespondedEvent> responseAction = e -> {};
         private String title = "";
         private String content = "";
         private String trueButton;
