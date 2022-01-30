@@ -89,7 +89,7 @@ public class BFormWindowModal extends FormWindowModal implements BForm{
         }
 
         public BFormWindowModal build(){
-            BFormWindowModal form =  new BFormWindowModal(title,content, trueButton, falseButton);
+            BFormWindowModal form =  new BFormWindowModal(title,content, trueButton, falseButton,responseAction);
             if (this.response != null)
                 form.setResponse(this.response);
             return form;
